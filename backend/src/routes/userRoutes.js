@@ -8,7 +8,14 @@ router.get('/', (req, res) =>
     res.json({msg: "Hello from Express!"});
 });
 
-router.post('/login', (req, res) =>
+// Update non-location info for user
+router.patch('/', (req, res) =>
 {
-    
-})
+    res.json({msg: "Update non-location info for user"}); 
+});
+
+// Delete user from database
+router.delete('/', (req, res) =>
+{
+    res.json({msg: "Delete user"}); 
+});

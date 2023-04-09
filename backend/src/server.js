@@ -8,6 +8,7 @@ const cors = require('cors');
 const app = express();
 
 const userRoutes = require('./routes/userRoutes');
+const loginRoutes = require('./routes/loginRoutes');
 
 app.use(cors());
 app.use(express.json());
@@ -26,6 +27,7 @@ app.use((req, res, next) => {
 
 // NOTE: All requests to routes in userRoutes MUST be prefixed with "/user". 
 // E.g., If you want to access the "thing/" endpoint in userRoutes, you would use the path "/user/thing/" to access it instead of "/thing/".
+app.use('/login', loginRoutes);
 app.use('/user', userRoutes);
 
 mongoose.connect(process.env.MONGO_CONNECT_STR)
