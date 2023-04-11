@@ -5,8 +5,6 @@ import './login.css';
 
 function Login() {
     // Form field data
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -21,9 +19,6 @@ function Login() {
             <div class = "login-form">
                 <h2>Sign-In</h2>
                 <p>Fill out this form.</p>
-                <div>
-                    <InputField type="text" placeholder="Name" onChange={(e) => { setFirstName(e.target.value) }} />
-                </div>
                 <InputField type="email" placeholder="E-Mail Address" iconName="email.svg" onChange={(e) => { setEmail(e.target.value) } } />
                 <InputField type="password" placeholder="Password" iconName="password.svg" onChange={(e) => { setPassword(e.target.value) } } />
                 <Link to="/register">Don't have an account? Click here to register.</Link> <p></p>
