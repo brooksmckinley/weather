@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import InputField from "../components/InputField";
+import './login.css';
 
 function Register() {
     // Form field data
@@ -18,12 +19,11 @@ function Register() {
     return (
         <>
             <h1>Weather App</h1>
-            <div>
+            <div class = "login-form">
                 <h2>Register</h2>
                 <p>Fill out this form.</p>
                 <div>
-                    <InputField type="text" placeholder="First Name" onChange={(e) => { setFirstName(e.target.value) }} />
-                    <InputField type="text" placeholder="Last Name" onChange={(e) => { setLastName(e.target.value) }} />
+                    <InputField type="text" placeholder="Name" onChange={(e) => { setFirstName(e.target.value) }} />
                 </div>
                 <InputField type="email" placeholder="E-Mail Address" iconName="email.svg" onChange={(e) => { setEmail(e.target.value) } } />
                 <InputField type="password" placeholder="Password" iconName="password.svg" onChange={(e) => { setPassword(e.target.value) } } />
