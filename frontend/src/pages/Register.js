@@ -22,8 +22,9 @@ function Register() {
             <div class = "login-form">
                 <h2>Register</h2>
                 <p>Fill out this form.</p>
-                <div>
-                    <InputField type="text" placeholder="Name" onChange={(e) => { setFirstName(e.target.value) }} />
+                <div class="firstLastName">
+                    <InputField type="text" placeholder="First Name" onChange={(e) => { setFirstName(e.target.value) }} />
+                    <InputField type="text" placeholder="Last Name" onChange={(e) => { setLastName(e.target.value) }} />
                 </div>
                 <InputField type="email" placeholder="E-Mail Address" iconName="email.svg" onChange={(e) => { setEmail(e.target.value) } } />
                 <InputField type="password" placeholder="Password" iconName="password.svg" onChange={(e) => { setPassword(e.target.value) } } />
