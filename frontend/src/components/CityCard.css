@@ -1,0 +1,7 @@
+.cityCard {
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}

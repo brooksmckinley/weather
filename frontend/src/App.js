@@ -5,6 +5,8 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Forecast from './pages/Forecast';
 
+import CityCard from './components/CityCard';
+
 // Example app code, kept for reference.
 
 // import logo from './logo.svg';
@@ -38,9 +40,16 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/forecast" element={<Forecast />} />
+        <Route path="/test" element={<Test />} />
       </Routes>
     </BrowserRouter>
   );
+}
+
+function Test() {
+  return <>
+    <CityCard cityName="Orlando" highTemp={80} lowTemp={60} currentTemp={77} />
+  </>;
 }
 
 export default App;
