@@ -4,4 +4,19 @@
     padding: 10px;
     display: flex;
     justify-content: space-between;
+    font-family: sans-serif;
+
+}
+
+.cityName {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.highLowTemp {
+    font-size: 16px;
+}
+
+.currentTemp {
+    font-size: 64px;
 }
