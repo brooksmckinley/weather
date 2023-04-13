@@ -5,12 +5,14 @@
     display: flex;
     justify-content: space-between;
     font-family: sans-serif;
-
+    color: #6D6D6D;
 }
 
 .cityName {
     font-size: 40px;
     font-weight: bold;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .highLowTemp {

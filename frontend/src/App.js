@@ -47,9 +47,9 @@ function App() {
 }
 
 function Test() {
-  return <>
+  return <div style={{maxWidth: "300px"}}>
     <CityCard cityName="Orlando" highTemp={80} lowTemp={60} currentTemp={77} />
-  </>;
+  </div>;
 }
 
 export default App;
