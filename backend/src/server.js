@@ -3,6 +3,7 @@ const mongoose = require('mongoose'),
                 bcrypt = require('bcrypt'),
                 SALT_WORK_FACTOR = 10;
 require('dotenv').config();
+const cookieParser = require('cookie-parser');
 const express = require('express');
 const cors = require('cors');
 const app = express();
@@ -12,6 +13,7 @@ const loginRoutes = require('./routes/loginRoutes');
 
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader(

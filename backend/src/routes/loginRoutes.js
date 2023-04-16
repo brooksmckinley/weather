@@ -1,8 +1,12 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose'),
                 Schema = mongoose.Schema,
                 bcrypt = require('bcrypt'),
                 SALT_WORK_FACTOR = 10;
+
+require('dotenv').config();
+
 const User = require("../schemas/User");
 const router = express.Router();
 
@@ -28,9 +32,14 @@ router.post('/login', async (req, res) =>
     console.log("Validating password for " + user.firstName + " " + user.lastName);
     try
     {
+        // Create new JWT and store as cookie
         if(await bcrypt.compare(password, user.password))
         {
-            console.log("Logged in successfully");
+            const token = jwt.sign( { _id : user._id }, Buffer.from(process.env.ACCESS_TOKEN_SECRET, 'base64'));
+
+            // Set cookie
+            res.cookie('jwt', token);
+
             res.json({msg: "Logged in successfully"});
         }
         else
