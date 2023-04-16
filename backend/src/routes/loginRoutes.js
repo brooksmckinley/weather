@@ -2,8 +2,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose'),
                 Schema = mongoose.Schema,
-                bcrypt = require('bcrypt'),
-                SALT_WORK_FACTOR = 10;
+                bcrypt = require('bcrypt');
 
 require('dotenv').config();
 
@@ -18,11 +17,8 @@ router.get('/', (req, res) =>
 });
 
 // Login user
-// TODO: Store JWT cookie
 router.post('/login', async (req, res) =>
 {
-    // res.json({msg: "Hello from login/login!"});
-
     const {email, password} = req.body;
     console.log("email: " + email);
     console.log("password: " + password);
@@ -44,7 +40,6 @@ router.post('/login', async (req, res) =>
         }
         else
         {
-            console.log("Invalid username or password");
             res.status(401);
             res.json({msg: "Invalid username or password"});
         }
