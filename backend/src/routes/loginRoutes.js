@@ -1,5 +1,8 @@
 const express = require('express');
-const mongoose = require('mongoose');
+const mongoose = require('mongoose'),
+                Schema = mongoose.Schema,
+                bcrypt = require('bcrypt'),
+                SALT_WORK_FACTOR = 10;
 const User = require("../schemas/User");
 const router = express.Router();
 
@@ -12,9 +15,35 @@ router.get('/', (req, res) =>
 
 // Login user
 // TODO: Store JWT cookie
-router.post('/login', (req, res) =>
+router.post('/login', async (req, res) =>
 {
-    
+    // res.json({msg: "Hello from login/login!"});
+
+    const {email, password} = req.body;
+    console.log("email: " + email);
+    console.log("password: " + password);
+
+    // Compare passwords
+    const user = await User.findOne({ email: email });
+    console.log("Validating password for " + user.firstName + " " + user.lastName);
+    try
+    {
+        if(await bcrypt.compare(password, user.password))
+        {
+            console.log("Logged in successfully");
+            res.json({msg: "Logged in successfully"});
+        }
+        else
+        {
+            console.log("Invalid username or password");
+            res.status(401);
+            res.json({msg: "Invalid username or password"});
+        }
+    }
+    catch (err)
+    {
+        console.error(err);
+    }
 });
 
 // Register user in database
