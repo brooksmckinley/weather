@@ -1,0 +1,43 @@
+body{
+    background-color: #7740EC;
+}
+h1{
+    margin-top: 5%;
+    color: white;
+    font-family:'Quicksand', sans-serif;
+    text-align:center;
+    font-size: 200%;
+}
+.login-form{
+    text-align:center;
+    margin: auto;
+    background-color: white;
+    padding-top: 1%;
+    padding-bottom: 3%;
+    padding-left: 5%;
+    padding-right: 5%;
+    border-radius: 25px;
+    max-width: 300px;
+    margin-top: 5%;
+    font-family:'Quicksand', sans-serif;
+}
+.firstLastName {
+    display: flex;
+}
+p{
+    color: #6D6D6D;
+    font-size: 80%;
+    line-height: 1%;
+}
+button{
+    background-color: #7740EC;
+    color: white;
+    width: 100%;
+    font-family:'Quicksand', sans-serif;
+    font-size: 100%;
+    text-align: center;
+}
+a{
+    color: #6D6D6D;
+    font-size: 64%;
+}

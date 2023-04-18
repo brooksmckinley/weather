@@ -1,0 +1,26 @@
+.inputField {
+    display: flex;
+    flex-direction: vertical;
+    margin-top: 5%;
+    margin-right: 4px;
+    min-width: 0;
+    background-color: #D9D9D9;
+}
+
+.inputField input {
+    background-color: #D9D9D9;
+    border: none;
+    display: flex;
+    flex-grow: 1;
+    min-width: 0;
+    padding: 4px;
+    padding-left: 8px;
+}
+
+.inputField input :focus {
+    border: none;
+}
+
+.inputField img {
+    padding-left: 4px;
+}
