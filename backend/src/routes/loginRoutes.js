@@ -6,14 +6,33 @@ const mongoose = require('mongoose'),
 
 require('dotenv').config();
 
+const {getUserID} = require('../utils.js');
+
 const User = require("../schemas/User");
 const router = express.Router();
 
 module.exports = router;
 
-router.get('/', (req, res) => 
+// Sample protected endpoint
+router.get('/sample', async (req, res) => 
 {
-    res.json({msg: "Hello from loginRoutes!"});
+    // If this function returns a non-null value, you can safely assume
+    // that the user is logged in.
+    const userID = getUserID(req);
+
+    if(userID != null)
+    {
+        console.log(userID);
+
+        const user = await User.findById(userID);
+
+        res.json({msg: "Hello " + user.firstName + " " + user.lastName + "!"});
+    }
+    else
+    {
+        res.status(401);
+        res.json({msg: "Unauthorized"});
+    }
 });
 
 // Login user
@@ -82,4 +101,11 @@ router.post('/register', async (req, res) =>
             res.json({error : error});
         }
     }
+});
+
+router.get('/logout', (req, res) => 
+{
+    res.clearCookie('jwt');
+
+    res.send({msg: "Hello from logout!"});
 });
