@@ -42,7 +42,7 @@ function Register() {
         if (data.msg === MESSAGES.ACCOUNT_CREATED_SUCCESSFULLY) {
             navigate("/");
         } else {
-            setAccountError(data.msg);
+            setAccountError(data.error);
         }
     }
 

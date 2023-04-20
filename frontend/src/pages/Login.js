@@ -10,7 +10,8 @@ function Login() {
     // Form field data
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [showError, setShowError] = useState(false);
+
+    const [accountError, setAccountError] = useState(null);
 
     async function submitForm() {
         let body = JSON.stringify({email, password});
@@ -28,17 +29,17 @@ function Login() {
           });
 
         let data = await request.json();
-        // Show a visible error if the username/password is invalid.
-        if (data.msg === MESSAGES.INVALID_USERNAME_OR_PASSWORD) {
-            setShowError(true);
-        } else if (data.msg === MESSAGES.LOGGED_IN_SUCCESSFULLY) {
-            navigate("/dashboard");
+        // Show a visible error if the API returns one.
+        if (data.msg === MESSAGES.LOGGED_IN_SUCCESSFULLY) {
+            redirect("/dashboard");
+        } else {
+            setAccountError(data.msg);
         }
     }
 
     function renderErrorText() {
-        if (showError) {
-            return <p className="errorText">Invalid username or password.</p>
+        if (accountError) {
+            return <p className="errorText">{accountError}</p>
         }
     }
     
