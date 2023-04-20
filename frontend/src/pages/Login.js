@@ -31,7 +31,7 @@ function Login() {
         let data = await request.json();
         // Show a visible error if the API returns one.
         if (data.msg === MESSAGES.LOGGED_IN_SUCCESSFULLY) {
-            redirect("/dashboard");
+            navigate("/dashboard");
         } else {
             setAccountError(data.msg);
         }
