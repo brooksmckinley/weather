@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import InputField from "../components/InputField";
 import './login.css';
-import MESSAGES from '../messages';
+import MESSAGES from '../utils/messages';
 
 function Login() {
     const navigate = useNavigate();
