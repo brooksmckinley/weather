@@ -39,12 +39,9 @@ router.get('/sample', async (req, res) =>
 router.post('/login', async (req, res) =>
 {
     const {email, password} = req.body;
-    console.log("email: " + email);
-    console.log("password: " + password);
 
     // Compare passwords
     const user = await User.findOne({ email: email });
-    console.log("Validating password for " + user.firstName + " " + user.lastName);
     try
     {
         // Create new JWT and store as cookie
@@ -66,6 +63,8 @@ router.post('/login', async (req, res) =>
     catch (err)
     {
         console.error(err);
+        res.status(401);
+        res.json({msg: "Invalid username or password"});
     }
 });
 
