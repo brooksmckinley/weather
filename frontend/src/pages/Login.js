@@ -12,8 +12,11 @@ function Login() {
     const [password, setPassword] = useState("");
 
     const [accountError, setAccountError] = useState(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     async function submitForm() {
+        setIsSubmitting(true);
+
         let body = JSON.stringify({email, password});
         let request = await fetch("http://localhost:5000/login/login", {
             method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -35,6 +38,8 @@ function Login() {
         } else {
             setAccountError(String(data.msg));
         }
+
+        setIsSubmitting(false);
     }
 
     function renderErrorText() {
@@ -53,7 +58,7 @@ function Login() {
                 <InputField type="email" placeholder="E-Mail Address" iconName="email.svg" onChange={(e) => { setEmail(e.target.value) } } />
                 <InputField type="password" placeholder="Password" iconName="password.svg" onChange={(e) => { setPassword(e.target.value) } } />
                 <Link to="/register">Don't have an account? Click here to register.</Link> <p></p>
-                <button onClick={submitForm}>Sign-In </button>
+                <button disabled={isSubmitting} onClick={submitForm}>Sign-In</button>
             </div>
         </>
     );
