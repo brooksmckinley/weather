@@ -1,21 +1,22 @@
 import './ForecastCard.css';
 
-function ForecastCard({cityName, currentTemp, hourTimes, hourTemps}) {
 
+function ForecastCard({hourTimes, hourWeather, hourTemps}) {
     return <div className="forecastCard">
-        <div>
-            <div className="cityName">
-                {cityName}
-            </div>
+        <div className="forecastTitle">
+                <b>12 Hour Forecast</b>
+        </div>
+        <br></br>
+        <div className="forecastContents">
             <div className="hourTimes">
-                {hourTimes}
+                {hourTimes.map((hour) => <div>{hour}<br></br></div>)}
+            </div>
+            <div className="hourWeather">
+                {hourWeather.map((hour) => <div>{hour}<br></br></div>)}
             </div>
             <div className="hourTemps">
-                {hourTemps}                
+                {hourTemps.map((hour) => <div>{hour}°<br></br></div>)}             
             </div>
-        </div>
-        <div className="currentTemp">
-            {currentTemp}°
         </div>
     </div>;
 }
