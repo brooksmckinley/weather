@@ -10,6 +10,7 @@ const app = express();
 
 const userRoutes = require('./routes/userRoutes');
 const loginRoutes = require('./routes/loginRoutes');
+const weatherRoutes = require('./routes/weatherRoutes');
 
 app.use(cors());
 app.use(express.json());
@@ -31,6 +32,7 @@ app.use((req, res, next) => {
 // E.g., If you want to access the "thing/" endpoint in userRoutes, you would use the path "/user/thing/" to access it instead of "/thing/".
 app.use('/login', loginRoutes);
 app.use('/user', userRoutes);
+app.use('/weather', weatherRoutes);
 
 mongoose.connect(process.env.MONGO_CONNECT_STR)
 .then(() => 
