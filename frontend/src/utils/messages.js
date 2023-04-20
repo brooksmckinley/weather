@@ -3,6 +3,7 @@
 
 const MESSAGES = {
     LOGGED_IN_SUCCESSFULLY: "Logged in successfully",
+    ACCOUNT_CREATED_SUCCESSFULLY: "Account created successfully!",
     INVALID_USERNAME_OR_PASSWORD: "Invalid username or password",
 };
 

@@ -1,9 +1,12 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import InputField from "../components/InputField";
+import MESSAGES from "../utils/messages";
 import './login.css';
 
 function Register() {
+    const navigate = useNavigate();
+
     // Form field data
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -11,9 +14,42 @@ function Register() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
+    const [accountError, setAccountError] = useState(null);
+
     // Insert code to submit the form
-    function submitForm() {
-        console.log("Submit button clicked.");
+    async function submitForm() {
+        // Check first that the form is actually valid before trying to submit
+        if (password !== confirmPassword) {
+            setAccountError("Passwords do not match");
+            return;
+        }
+
+        let body = JSON.stringify({ firstName, lastName, email, password });
+        let request = await fetch("http://localhost:5000/login/register", {
+            method: "POST", // *GET, POST, PUT, DELETE, etc.
+            mode: "cors", // no-cors, *cors, same-origin
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: "same-origin", // include, *same-origin, omit
+            headers: {
+              "Content-Type": "application/json",
+            },
+            redirect: "follow", // manual, *follow, error
+            referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            body, // body data type must match "Content-Type" header
+        });
+
+        let data = await request.json();
+        if (data.msg === MESSAGES.ACCOUNT_CREATED_SUCCESSFULLY) {
+            navigate("/");
+        } else {
+            setAccountError(data.msg);
+        }
+    }
+
+    function renderErrorText() {
+        if (accountError) {
+            return <p class="errorText">{ accountError }</p>
+        }
     }
     
     return (
@@ -22,6 +58,7 @@ function Register() {
             <div class = "login-form">
                 <h2>Register</h2>
                 <p>Fill out this form.</p>
+                { renderErrorText() }
                 <div class="firstLastName">
                     <InputField type="text" placeholder="First Name" onChange={(e) => { setFirstName(e.target.value) }} />
                     <InputField type="text" placeholder="Last Name" onChange={(e) => { setLastName(e.target.value) }} />
