@@ -33,7 +33,7 @@ function Login() {
         if (data.msg === MESSAGES.LOGGED_IN_SUCCESSFULLY) {
             navigate("/dashboard");
         } else {
-            setAccountError(data.msg);
+            setAccountError(String(data.msg));
         }
     }
 
