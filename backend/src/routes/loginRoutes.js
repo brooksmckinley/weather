@@ -92,12 +92,12 @@ router.post('/register', async (req, res) =>
         if(error.code === 11000)
         {
             res.status(409);
-            res.json({error : "Account with email " + req.body.email + " already exists."});
+            res.json({msg : "Account with email " + req.body.email + " already exists."});
         }
         else
         {
             res.status(500);
-            res.json({error : error});
+            res.json({msg : error});
         }
     }
 });
