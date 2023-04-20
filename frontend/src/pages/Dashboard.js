@@ -33,6 +33,7 @@ function Dashboard() {
     ];
 
     const [cities, setCities] = useState(TEST_CITIES);
+    const [firstName, setFirstName] = useState("Loading...");
 
     function renderCities() {
         return cities.map(function (city) {
@@ -47,7 +48,7 @@ function Dashboard() {
     }
     
     return <div>
-        <h1>Welcome, John</h1>
+        <h1>Welcome, {firstName}</h1>
         <div className="cardContainer">
             { renderCities() }
         </div>
