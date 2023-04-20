@@ -15,6 +15,7 @@ function Register() {
     const [confirmPassword, setConfirmPassword] = useState("");
 
     const [accountError, setAccountError] = useState(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     // Insert code to submit the form
     async function submitForm() {
@@ -23,6 +24,8 @@ function Register() {
             setAccountError("Passwords do not match");
             return;
         }
+
+        setIsSubmitting(true);
 
         let body = JSON.stringify({ firstName, lastName, email, password });
         let request = await fetch("http://localhost:5000/login/register", {
@@ -44,6 +47,8 @@ function Register() {
         } else {
             setAccountError(String(data.error));
         }
+
+        setIsSubmitting(false);
     }
 
     function renderErrorText() {
@@ -67,7 +72,7 @@ function Register() {
                 <InputField type="password" placeholder="Password" iconName="password.svg" onChange={(e) => { setPassword(e.target.value) } } />
                 <InputField type="password" placeholder="Confirm Password" iconName="password.svg" onChange={(e) => { setConfirmPassword(e.target.value) } } />
                 <Link to="/">Already have an account? Click here to log in.</Link>
-                <button onClick={submitForm}>Create Account</button>
+                <button disabled={isSubmitting} onClick={submitForm}>Create Account</button>
             </div>
         </>
     );
