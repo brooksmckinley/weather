@@ -45,7 +45,7 @@ function Register() {
         if (data.msg === MESSAGES.ACCOUNT_CREATED_SUCCESSFULLY) {
             navigate("/");
         } else {
-            setAccountError(String(data.error));
+            setAccountError(String(data.msg));
         }
 
         setIsSubmitting(false);
