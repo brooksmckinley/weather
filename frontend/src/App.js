@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard';
 import Forecast from './pages/Forecast';
 
 import CityCard from './components/CityCard';
+import ForecastCard from './components/ForecastCard';
 
 // Example app code, kept for reference.
 
@@ -49,6 +50,7 @@ function App() {
 function Test() {
   return <div style={{maxWidth: "300px"}}>
     <CityCard cityName="Orlando" highTemp={80} lowTemp={60} currentTemp={77} />
+    <ForecastCard cityName="Orlando" currentTemp={77} hourTimes={['8am', '9am', '10am', '11am', '12pm', '1pm', '2pm','3pm','4pm','5pm','6pm','7pm']} hourTemps={['77', '77', '77', '77', '77', '77', '77', '77','77', '77','77', '77']}/>
   </div>;
 }
 
