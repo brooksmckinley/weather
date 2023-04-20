@@ -3,6 +3,11 @@ import './forecast.css';
 
 function Forecast({cityName, currentTemp}) {
     return <div className="forecastPage">
+        <div className="forecastButton">
+            <button type = "button">Back</button>
+            <button type = "button" class="delete">Delete</button>
+        </div>
+        <br></br>
         <div className="forecastCity">
             <b>{cityName}</b>
             <br></br>
