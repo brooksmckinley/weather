@@ -106,5 +106,5 @@ router.get('/logout', (req, res) =>
 {
     res.clearCookie('jwt');
 
-    res.send({msg: "Hello from logout!"});
+    res.send({msg: "Logged out successfully"});
 });
