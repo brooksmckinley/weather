@@ -114,3 +114,32 @@ router.delete('/', async (req, res) =>
         res.json({msg: "Unauthorized"});
     }
 });
+
+// Add location to currently logged in user
+router.post('/location', async (req, res) => 
+{
+    const userID = getUserID(req);
+
+    if(userID != null)
+    {
+        const user = await User.findById(userID);
+
+        if(req.body['locationKey'] && !user.locations.includes(req.body['locationKey']))
+        {
+            user.locations.push(req.body['locationKey']);
+            user.save();
+
+            res.json({msg: "Successfully added " + req.body['locationKey'] + " to locations"});
+        }
+        else if (user.locations.includes(req.body['locationKey']))
+        {
+            res.status(409);
+            res.json({msg: req.body['locationKey'] + " already exists in locations"});
+        }
+    }
+    else
+    {
+        res.status(401);
+        res.json({msg: "Unauthorized"});
+    }
+});
