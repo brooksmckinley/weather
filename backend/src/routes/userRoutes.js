@@ -13,9 +13,26 @@ const router = express.Router();
 module.exports = router;
 
 // TODO: Get account info for currently logged in user (except for password)
-router.get('/', (req, res) => 
+router.get('/', async (req, res) => 
 {
-    res.json({msg: "Hello from Express!"});
+    // res.json({msg: "Hello from Express!"});
+    const userID = getUserID(req);
+
+    if(userID != null)
+    {
+        console.log(userID);
+
+        const user = await User.findById(userID);
+
+        // res.json({msg: "Hello " + user.firstName + " " + user.lastName + "!"});
+        user['password'] = "HIDDEN";
+        res.json(user);
+    }
+    else
+    {
+        res.status(401);
+        res.json({msg: "Unauthorized"});
+    }
 });
 
 // TODO: Finish this function
@@ -87,10 +104,7 @@ router.delete('/', async (req, res) =>
 
     if(userID != null)
     {
-        console.log(userID);
-
         const user = await User.findOneAndDelete({_id: userID});
-        console.log("Deleted " + user);
 
         // Remove cookie for non-existent user
         res.clearCookie('jwt');
