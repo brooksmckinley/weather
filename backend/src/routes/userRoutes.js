@@ -12,10 +12,9 @@ const router = express.Router();
 
 module.exports = router;
 
-// TODO: Get account info for currently logged in user (except for password)
+// Returns info for currently logged in user
 router.get('/', async (req, res) => 
 {
-    // res.json({msg: "Hello from Express!"});
     const userID = getUserID(req);
 
     if(userID != null)
@@ -24,8 +23,9 @@ router.get('/', async (req, res) =>
 
         const user = await User.findById(userID);
 
-        // res.json({msg: "Hello " + user.firstName + " " + user.lastName + "!"});
+        // Don't return the user's password hash
         user['password'] = "HIDDEN";
+        
         res.json(user);
     }
     else
@@ -35,12 +35,9 @@ router.get('/', async (req, res) =>
     }
 });
 
-// TODO: Finish this function
 // Update non-location info for user
 router.patch('/', async (req, res) =>
 {
-    // res.json({msg: "Update non-location info for user"});
-
     const userID = getUserID(req);
 
     if(userID != null)
