@@ -12,6 +12,7 @@ const router = express.Router();
 
 module.exports = router;
 
+// TODO: Get account info for currently logged in user (except for password)
 router.get('/', (req, res) => 
 {
     res.json({msg: "Hello from Express!"});
@@ -23,8 +24,6 @@ router.patch('/', async (req, res) =>
 {
     // res.json({msg: "Update non-location info for user"});
 
-    // If this function returns a non-null value, you can safely assume
-    // that the user is logged in.
     const userID = getUserID(req);
 
     if(userID != null)
@@ -32,14 +31,12 @@ router.patch('/', async (req, res) =>
         // Remove empty fields from request body
         for(var key of Object.keys(req.body))
         {
-            console.log(key + ": " + req.body[key]);
-            if(!req.body[key] || key === "password")
+            if(!req.body[key])
             {
                 delete req.body[key];
             }
         }
 
-        console.log(req.body);
         if(Object.keys(req.body).length === 0)
         {
             res.status(400);
@@ -47,8 +44,33 @@ router.patch('/', async (req, res) =>
         }
         else
         {
-            const user = await User.findOneAndUpdate({_id: userID}, req.body, {new: true});
-            res.json({msg: "Hello " + user.firstName + " " + user.lastName + "!"});
+            try
+            {
+                // Update user
+                const user = await User.findById(userID);
+
+                for(var key of Object.keys(req.body))
+                {
+                    user[key] = req.body[key];
+                }
+
+                // Had to use save instead of findOneAndUpdate because I needed my password hashing middleware to hash the updated password
+                user.save();
+                res.json({msg: "Successfully updated user info for " + user.firstName + " " + user.lastName});
+            }
+            catch(error)
+            {   
+                if(error.code === 11000)
+                {
+                    res.status(409);
+                    res.json({msg : "Account with email " + req.body.email + " already exists."});
+                }
+                else
+                {
+                    res.status(500);
+                    res.json({msg : error});
+                }
+            }   
         }
     }
     else
