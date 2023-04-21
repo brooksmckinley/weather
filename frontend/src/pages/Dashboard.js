@@ -1,7 +1,8 @@
 import { useState } from "react";
-
 import CityCard from "../components/CityCard";
 import "./Dashboard.css";
+import Search from "../components/search";
+import { Link } from "react-router-dom";
 
 function Dashboard() {
     // Dummy state
@@ -32,6 +33,7 @@ function Dashboard() {
         },
     ];
 
+    const [text, searchCity] = useState("");
     const [cities, setCities] = useState(TEST_CITIES);
     const [firstName, setFirstName] = useState("Loading...");
 
@@ -46,6 +48,13 @@ function Dashboard() {
             />
         })
     }
+    function search(){
+        return (
+            <>  
+                <Search type="text" placeholder="Search" iconName="search.svg" onChange={(e) => { searchCity(e.target.value) } } />
+            </>
+        );
+    }
     
     return <div>
         <h1>Welcome, {firstName}</h1>
@@ -54,5 +63,3 @@ function Dashboard() {
         </div>
     </div>
 }
-
-export default Dashboard;
