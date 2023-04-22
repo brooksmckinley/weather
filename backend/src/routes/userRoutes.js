@@ -124,17 +124,18 @@ router.post('/location', async (req, res) =>
     {
         const user = await User.findById(userID);
 
-        if(req.body['locationKey'] && !user.locations.includes(req.body['locationKey']))
+        if(isLocationValid(req))
         {
-            user.locations.push(req.body['locationKey']);
+            user.locations.push(req.body);
             user.save();
 
-            res.json({msg: "Successfully added " + req.body['locationKey'] + " to locations"});
+            res.status(201);
+            res.json({msg: "Successfully added " + req.body['city'] + " to locations"});
         }
-        else if (user.locations.includes(req.body['locationKey']))
+        else
         {
-            res.status(409);
-            res.json({msg: req.body['locationKey'] + " already exists in locations"});
+            res.status(400);
+            res.json({msg: "Missing one or more required fields"});
         }
     }
     else
@@ -143,3 +144,8 @@ router.post('/location', async (req, res) =>
         res.json({msg: "Unauthorized"});
     }
 });
+
+function isLocationValid(req)
+{
+    return req.body['locationKey'] && req.body['city'] && req.body['state'] && req.body['country'];
+}
