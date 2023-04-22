@@ -23,16 +23,75 @@ router.get('/citySearch', async (req, res) =>
     //logs it into console
     //console.log(data);
 
-    //returns the first array of info from the live server
-    //return data[0];
-    res.json(data);
+    //Filtering info we need
+    //creates an empty array
+    var returnData = [] ; 
+    //for each json obj in data copy things from data to return data at that location
+    data.forEach(function(obj)
+   {
+     var tmp= {};
+    // Repeat the line below for each field you want to copy
+    //tmp is what we want to name it, obj is the name of the field in the api
+     tmp['Key'] = obj['Key'];
+     tmp['City'] = obj['LocalizedName'];
+     tmp['State'] = obj['AdministrativeArea']['LocalizedName'];
+     tmp['Country'] = obj['Country']['LocalizedName'];
+     
+
+     returnData.push(tmp);
+   });
+
+    
+    res.json(returnData);
+    //res.json(data);
 
 });
 
-router.get('/Forecast' , async (req, res) => 
+router.get('/12hrForecast' , async (req, res) => 
 {
+    const base = 'http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/';
+    const query =  `${req.body['Key']}?apikey=${process.env.ACCUWEATHER_API_KEY} `;
+    const response = await fetch(base + query);
+    const data = await response.json();
+
+    //filterd data
+    var returnData= [];
+    data.forEach(function(obj)
+    {
+      var tmp= {};
+     // Repeat the line below for each field you want to copy
+     //tmp is what we want to name it, obj is the name of the field in the api
+      tmp['DateTime'] = obj['DateTime'];
+      tmp['Temperature'] = obj['Temperature']['Value'];
+      tmp['Unit'] = obj['Temperature']['Unit'];
+      tmp['Conditions'] = obj['IconPhrase'];
+      tmp['Precipitation'] = obj['HasPrecipitation'];
+      tmp['PrecipitationIntensity'] = obj['PrecipitationIntensity'];
+
+      returnData.push(tmp);
+    });
     
+    //console.log(data);
+    //return data[0];
+    //res.json(data);
+    res.json(returnData);
 })
+
+/////Daily Forecast
+router.get('/DailyForecast' , async (req, res) => 
+{
+    const base = 'http://dataservice.accuweather.com/forecasts/v1/daily/1day/';
+    const query =  `${req.body['Key']}?apikey=${process.env.ACCUWEATHER_API_KEY} `;
+    const response = await fetch(base + query);
+    const data = await response.json();
+
+   
+    res.json(data);
+})
+
+
+
+
 
 // Update non-location info for user
 router.patch('/', (req, res) =>
