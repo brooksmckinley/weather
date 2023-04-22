@@ -41,3 +41,11 @@ a{
     color: #6D6D6D;
     font-size: 64%;
 }
+
+.errorText {
+    color: darkred;
+}
+
+button:disabled {
+    background-color: lightgrey;
+}
