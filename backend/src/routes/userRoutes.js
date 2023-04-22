@@ -126,8 +126,16 @@ router.post('/location', async (req, res) =>
 
         if(isLocationValid(req))
         {
-            user.locations.push(req.body);
-            user.save();
+            try
+            {
+                user.locations.push(req.body);
+                user.save();
+            }
+            catch(error)
+            {
+                res.status(500);
+                res.json({msg : error});
+            }
 
             res.status(201);
             res.json({msg: "Successfully added " + req.body['city'] + " to locations"});
