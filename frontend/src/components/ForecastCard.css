@@ -1,0 +1,36 @@
+
+.forecastCard {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    justify-content: space-between;
+    font-family: sans-serif;
+    color: #6D6D6D;
+}
+
+.forecastTitle {
+    font-size: 30px;
+    text-align: center;
+}
+
+.forecastContents {
+    margin:auto;
+    text-align: center;
+}
+
+.hourTimes {
+    font-size: 24px;
+    display: inline-block;
+    text-align: center;
+}
+.hourTemps {
+    font-size: 24px;
+    display: inline-block;
+    margin-left:30px;
+}
+
+.hourWeather {
+    font-size: 24px;
+    display: inline-block;
+    margin-left:30px;
+}

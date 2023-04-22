@@ -45,7 +45,7 @@ router.post('/login', async (req, res) =>
     try
     {
         // Create new JWT and store as cookie
-        if(await bcrypt.compare(password, user.password))
+        if(user && await bcrypt.compare(password, user.password))
         {
             const token = jwt.sign( { _id : user._id }, Buffer.from(process.env.ACCESS_TOKEN_SECRET, 'base64'));
 
