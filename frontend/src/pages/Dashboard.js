@@ -34,14 +34,11 @@ const TEST_CITIES = [
 ];
 
 function Dashboard() {
-    
-
     const [text, searchCity] = useState("");
-    const [cities, setCities] = useState(TEST_CITIES);
     const [firstName, setFirstName] = useState("Loading...");
 
     // Filter the list of cities when the search text changes using a case-insensitive search.
-    useMemo(() => setCities(TEST_CITIES.filter(city => city.cityName.toLowerCase().includes(text.toLowerCase()))), [text]);
+    const cities = useMemo(() => TEST_CITIES.filter(city => city.cityName.toLowerCase().includes(text.toLowerCase())), [text]);
 
     function renderCities() {
         return cities.map(function (city) {
