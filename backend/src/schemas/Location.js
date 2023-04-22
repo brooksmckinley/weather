@@ -3,19 +3,19 @@ const mongoose = require('mongoose'),
 
 const locationSchema = new mongoose.Schema(
     {
-        Key: {
+        locationKey: {
             type: String,
             required: true
         },
-        City: {
+        city: {
             type: String,
             required: true
         },
-        State: {
+        state: {
             type: String,
             required: true
         },
-        Country: {
+        country: {
             type: String,
             required: true
         }
