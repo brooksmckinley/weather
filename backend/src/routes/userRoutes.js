@@ -153,6 +153,53 @@ router.post('/location', async (req, res) =>
     }
 });
 
+// Deletes the first location matching locationKey in the requestBody from the currently logged in user
+router.delete('/location', async (req, res) => 
+{
+    const userID = getUserID(req);
+
+    if(userID != null)
+    {
+        const user = await User.findById(userID);
+
+        if(req.body['locationKey'])
+        {
+            try
+            {
+                // Couldn't get findIndex to work, so I'm doing this manually
+                for(let i = 0; i < user.locations.length; i++)
+                {
+                    if(user.locations[i]['locationKey'] === req.body['locationKey'])
+                    {
+                        user.locations.splice(i, 1);
+                        break;
+                    }
+                }
+
+                user.save();
+            }
+            catch(error)
+            {
+                res.status(500);
+                res.json({msg : error});
+            }
+
+            res.status(201);
+            res.json({msg: "Successfully deleted location " + req.body['locationKey'] + " from locations"});
+        }
+        else
+        {
+            res.status(400);
+            res.json({msg: "locationKey missing from request body"});
+        }
+    }
+    else
+    {
+        res.status(401);
+        res.json({msg: "Unauthorized"});
+    }
+});
+
 function isLocationValid(req)
 {
     return req.body['locationKey'] && req.body['city'] && req.body['state'] && req.body['country'];
