@@ -20,9 +20,6 @@ router.get('/citySearch', async (req, res) =>
     //when you get response you need to turn is into a json data
     const data = await response.json();
 
-    //logs it into console
-    //console.log(data);
-
     //Filtering info we need
     //creates an empty array
     var returnData = [] ; 
@@ -88,8 +85,6 @@ router.get('/DailyForecast' , async (req, res) =>
    
     res.json(data);
 })
-
-
 
 
 
