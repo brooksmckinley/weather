@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CityCard from "../components/CityCard";
 import "./Dashboard.css";
 import Search from "../components/search";
@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 function Dashboard() {
     // Dummy state
+    // TODO: Replace all instances of TEST_CITIES with a real array of cities obtained from the API.
     const TEST_CITIES = [
         {
             cityName: "Orlando",
@@ -37,6 +38,9 @@ function Dashboard() {
     const [cities, setCities] = useState(TEST_CITIES);
     const [firstName, setFirstName] = useState("Loading...");
 
+    // Filter the list of cities when the search text changes using a case-insensitive search.
+    useEffect(() => setCities(TEST_CITIES.filter(city => city.cityName.toLowerCase().includes(text.toLowerCase()))), [text]);
+
     function renderCities() {
         return cities.map(function (city) {
             return <CityCard
@@ -59,6 +63,8 @@ function Dashboard() {
     return <div>
         <h1>Welcome, {firstName}</h1>
         <div className="cardContainer">
+            { search() }
+            <br />
             { renderCities() }
         </div>
     </div>
