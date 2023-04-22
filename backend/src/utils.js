@@ -8,6 +8,11 @@ module.exports =
 {
     getUserID: function(req)
     {
+        if(req.cookies['jwt'] == null)
+        {
+            return null;
+        }
+
         // Validate JWT
         try
         {

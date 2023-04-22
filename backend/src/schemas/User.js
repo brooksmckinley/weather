@@ -20,7 +20,26 @@ const userSchema = new mongoose.Schema(
             required: true
             // TODO: Add validator
         },
-        locations: [String]
+        locations: [new mongoose.Schema(
+            {
+                locationKey: {
+                    type: String,
+                    required: true
+                },
+                city: {
+                    type: String,
+                    required: true
+                },
+                state: {
+                    type: String,
+                    required: true
+                },
+                country: {
+                    type: String,
+                    required: true
+                }
+            }
+        )]
     },
     {
         collection: "Users"
