@@ -3,8 +3,6 @@ const mongoose = require('mongoose'),
                 bcrypt = require('bcrypt'),
                 SALT_WORK_FACTOR = 10;
 
-const Location = require("./Location");
-
 const userSchema = new mongoose.Schema(
     {
         firstName: String,
@@ -22,7 +20,26 @@ const userSchema = new mongoose.Schema(
             required: true
             // TODO: Add validator
         },
-        locations: [Location]
+        locations: [new mongoose.Schema(
+            {
+                locationKey: {
+                    type: String,
+                    required: true
+                },
+                city: {
+                    type: String,
+                    required: true
+                },
+                state: {
+                    type: String,
+                    required: true
+                },
+                country: {
+                    type: String,
+                    required: true
+                }
+            }
+        )]
     },
     {
         collection: "Users"

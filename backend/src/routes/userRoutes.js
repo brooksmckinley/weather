@@ -8,7 +8,6 @@ require('dotenv').config();
 const {getUserID} = require('../utils.js');
 
 const User = require("../schemas/User");
-const Location = require("./Location");
 const router = express.Router();
 
 module.exports = router;
