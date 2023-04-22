@@ -1,0 +1,44 @@
+
+.forecastCity {
+    color:white;
+    font-size:40px;
+    font-family:'Quicksand', sans-serif;   
+    text-align: center;
+    margin-top: 20px;
+}
+
+.foreCurrentTemp {
+    color:white;
+    font-size:64px;
+    font-family:'Quicksand', sans-serif;   
+    text-align: center;
+    margin-left:15px;
+}
+
+.forecastCardTag {
+    text-align: center;
+    margin:auto;
+}
+
+
+
+button{
+    text-align: center;
+    padding: 7px;
+    font-size: 15px;
+    width: 75px;
+    background-color: #D9D9D9;
+    color: black;
+    border-radius: 10px;
+    border: none;
+    margin-left:10px;
+    box-shadow: 0px 3px 3px #00000030;
+    display:inline;
+    position:fixed;
+}
+
+button.delete{
+    margin-right: 10px;
+    display:inline;
+    right: 5px;
+}
