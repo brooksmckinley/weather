@@ -1,41 +1,44 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import CityCard from "../components/CityCard";
 import "./Dashboard.css";
 import Search from "../components/search";
 import { Link } from "react-router-dom";
 
-function Dashboard() {
-    // Dummy state
-    const TEST_CITIES = [
-        {
-            cityName: "Orlando",
-            highTemp: 80,
-            lowTemp: 60,
-            currentTemp: 77,
-        },
-        {
-            cityName: "Tampa",
-            highTemp: 80,
-            lowTemp: 60,
-            currentTemp: 77,
-        },
-        {
-            cityName: "Phoenix",
-            highTemp: 80,
-            lowTemp: 60,
-            currentTemp: 77,
-        },
-        {
-            cityName: "New York",
-            highTemp: 80,
-            lowTemp: 60,
-            currentTemp: 77,
-        },
-    ];
+// Dummy state
+// TODO: Replace all instances of TEST_CITIES with a real array of cities obtained from the API.
+const TEST_CITIES = [
+    {
+        cityName: "Orlando",
+        highTemp: 80,
+        lowTemp: 60,
+        currentTemp: 77,
+    },
+    {
+        cityName: "Tampa",
+        highTemp: 80,
+        lowTemp: 60,
+        currentTemp: 77,
+    },
+    {
+        cityName: "Phoenix",
+        highTemp: 80,
+        lowTemp: 60,
+        currentTemp: 77,
+    },
+    {
+        cityName: "New York",
+        highTemp: 80,
+        lowTemp: 60,
+        currentTemp: 77,
+    },
+];
 
+function Dashboard() {
     const [text, searchCity] = useState("");
-    const [cities, setCities] = useState(TEST_CITIES);
     const [firstName, setFirstName] = useState("Loading...");
+
+    // Filter the list of cities when the search text changes using a case-insensitive search.
+    const cities = useMemo(() => TEST_CITIES.filter(city => city.cityName.toLowerCase().includes(text.toLowerCase())), [text]);
 
     function renderCities() {
         return cities.map(function (city) {
@@ -59,6 +62,8 @@ function Dashboard() {
     return <div>
         <h1>Welcome, {firstName}</h1>
         <div className="cardContainer">
+            { search() }
+            <br />
             { renderCities() }
         </div>
     </div>
