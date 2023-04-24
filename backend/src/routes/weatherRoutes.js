@@ -83,10 +83,10 @@ router.get('/12hrForecast' , async (req, res) =>
 })
 
 /////Daily Forecast
-router.get('/DailyForecast' , async (req, res) => 
+router.post('/DailyForecast' , async (req, res) => 
 {
-    const base = 'http://dataservice.accuweather.com/forecasts/v1/daily/1day/';
-    const query =  `${req.body['Key']}?apikey=${process.env.ACCUWEATHER_API_KEY} `;
+    const base = 'http://dataservice.accuweather.com/currentconditions/v1/';
+    const query =  `${req.body['Key']}?apikey=${process.env.ACCUWEATHER_API_KEY}&details=true`;
     const response = await fetch(base + query);
     const data = await response.json();
 
