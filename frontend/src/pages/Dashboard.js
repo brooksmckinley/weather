@@ -45,11 +45,13 @@ function Dashboard() {
 
         const loadUserData = async () => {
             // Load in user info and basic location information
-            const userRequest = await fetch(`${ENVIRONMENT.BACKEND_URL}/user`);
+            const userRequest = await fetch(`${ENVIRONMENT.BACKEND_URL}/user`, { credentials: "include" });
             const user = await userRequest.json();
 
             const forecasts = [];
             // Load in each of the user's locations in parallel
+            // Save on API calls while developing
+            // user.locations = [user.locations[0]];
             await Promise.all(user.locations.map(async (city) => {
                 const forecastRequest = await fetch(`${ENVIRONMENT.BACKEND_URL}/weather/DailyForecast`, {
                     method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -61,20 +63,20 @@ function Dashboard() {
                     },
                     redirect: "follow", // manual, *follow, error
                     referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-                    body: { Key: city.locationKey }
+                    body: JSON.stringify({ Key: city.locationKey }),
                 });
                 const forecast = await forecastRequest.json();
-                forecasts[city.locationKey] = forecast;
+                forecasts[city.locationKey] = forecast[0];
             }));
 
-            // Place all of the loaded information into state if the component that called this effect hasn't been removed.
+            // // Place all of the loaded information into state if the component that called this effect hasn't been removed.
             if (active) {
                 setCities(user.locations.map((city) => {
                     return {
                         cityName: city.city,
-                        highTemp: forecasts[city.locationKey].DailyForecasts[0].Temperature.Maximum.Value,
-                        lowTemp: forecasts[city.locationKey].DailyForecasts[0].Temperature.Minimum.Value,
-                        currentTemp: 30,
+                        highTemp: forecasts[city.locationKey].TemperatureSummary.Past24HourRange.Maximum.Imperial.Value,
+                        lowTemp: forecasts[city.locationKey].TemperatureSummary.Past24HourRange.Maximum.Imperial.Value,
+                        currentTemp: forecasts[city.locationKey].Temperature.Imperial.Value,
                         key: city.locationKey,
                     };
                 }));
@@ -87,9 +89,11 @@ function Dashboard() {
     }, []);
 
     // Filter the list of cities when the search text changes using a case-insensitive search.
-    const filteredCities = useMemo(() => TEST_CITIES.filter(city => city.cityName.toLowerCase().includes(text.toLowerCase())), [text]);
+    console.log(cities);
+    const filteredCities = useMemo(() => cities.filter(city => city.cityName.toLowerCase().includes(text.toLowerCase())), [text, cities]);
 
     function renderCities() {
+        console.log(filteredCities);
         return filteredCities.map(function (city) {
             return <CityCard
              cityName={city.cityName} 
