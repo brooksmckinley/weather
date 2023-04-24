@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import InputField from "../components/InputField";
 import './login.css';
 import MESSAGES from '../utils/messages';
+import ENVIRONMENT from "../utils/environment";
 
 function Login() {
     const navigate = useNavigate();
@@ -18,7 +19,7 @@ function Login() {
         setIsSubmitting(true);
 
         let body = JSON.stringify({email, password});
-        let request = await fetch("http://localhost:5000/login/login", {
+        let request = await fetch(`${ENVIRONMENT.BACKEND_URL}/login/login`, {
             method: "POST", // *GET, POST, PUT, DELETE, etc.
             mode: "cors", // no-cors, *cors, same-origin
             cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
