@@ -5,19 +5,17 @@ const mongoose = require('mongoose'),
 require('dotenv').config();
 const cookieParser = require('cookie-parser');
 const express = require('express');
-const cors = require('cors');
 const app = express();
 
 const userRoutes = require('./routes/userRoutes');
 const loginRoutes = require('./routes/loginRoutes');
 const weatherRoutes = require('./routes/weatherRoutes');
 
-// app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
-console.log(process.env.ENVIRONMENT);
+console.log(process.env.NODE_ENV);
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', process.env.ENVIRONMENT == 'development' ? 'http://localhost:3000' : '*');
+    res.setHeader('Access-Control-Allow-Origin', process.env.NODE_ENV == 'development' ? 'http://localhost:3000' : '*');
     res.setHeader(
         'Access-Control-Allow-Headers',
         'Origin, X-Requested-With, Content-Type, Accept, Authorization'
