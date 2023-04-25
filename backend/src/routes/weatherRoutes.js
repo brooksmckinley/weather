@@ -4,7 +4,7 @@ require('dotenv').config();
 
 module.exports = router;
 
-router.get('/citySearch', async (req, res) => 
+router.post('/citySearch', async (req, res) => 
 {
     const base = 'http://dataservice.accuweather.com/locations/v1/cities/search'; //base url from api website
     
