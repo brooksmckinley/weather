@@ -72,7 +72,7 @@ function Register() {
                 <InputField type="password" placeholder="Password" iconName="password.svg" onChange={(e) => { setPassword(e.target.value) } } />
                 <InputField type="password" placeholder="Confirm Password" iconName="password.svg" onChange={(e) => { setConfirmPassword(e.target.value) } } />
                 <Link to="/">Already have an account? Click here to log in.</Link>
-                <button disabled={isSubmitting} onClick={submitForm}>Create Account</button>
+                <button id = "login-button" disabled={isSubmitting} onClick={submitForm}>Create Account</button>
             </div>
         </>
     );
