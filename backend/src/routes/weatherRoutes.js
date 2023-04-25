@@ -39,7 +39,7 @@ router.get('/citySearch', async (req, res) =>
     res.json(returnData);
 });
 
-router.get('/12hrForecast' , async (req, res) => 
+router.post('/12hrForecast' , async (req, res) => 
 {
     const base = 'http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/';
     const query =  `${req.body['Key']}?apikey=${process.env.ACCUWEATHER_API_KEY} `;
