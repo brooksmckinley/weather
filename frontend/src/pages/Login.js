@@ -58,7 +58,7 @@ function Login() {
                 <InputField type="email" placeholder="E-Mail Address" iconName="email.svg" onChange={(e) => { setEmail(e.target.value) } } />
                 <InputField type="password" placeholder="Password" iconName="password.svg" onChange={(e) => { setPassword(e.target.value) } } />
                 <Link to="/register">Don't have an account? Click here to register.</Link> <p></p>
-                <button disabled={isSubmitting} onClick={submitForm}>Sign-In</button>
+                <button id = "login-button" disabled={isSubmitting} onClick={submitForm}>Sign-In</button>
             </div>
         </>
     );
