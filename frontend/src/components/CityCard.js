@@ -1,8 +1,11 @@
+import { useNavigate } from 'react-router-dom';
+
 import './CityCard.css';
 
-function CityCard({cityName, highTemp, lowTemp, currentTemp}) {
+function CityCard({cityName, cityKey, highTemp, lowTemp, currentTemp}) {
+    const navigate = useNavigate();
 
-    return <div className="cityCard">
+    return <div onClick={() => navigate(`/forecast/${cityKey}/${cityName}`)} className="cityCard">
         <div>
             <div className="cityName">
                 {cityName}
