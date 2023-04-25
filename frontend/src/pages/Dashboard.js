@@ -96,7 +96,8 @@ function Dashboard() {
         console.log(filteredCities);
         return filteredCities.map(function (city) {
             return <CityCard
-             cityName={city.cityName} 
+             cityName={city.cityName}
+             cityKey={city.key}
              highTemp={city.highTemp} 
              lowTemp={city.lowTemp} 
              currentTemp={city.currentTemp}
