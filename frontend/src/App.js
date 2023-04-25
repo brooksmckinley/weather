@@ -8,6 +8,7 @@ import Forecast from './pages/Forecast';
 import CityCard from './components/CityCard';
 import ForecastCard from './components/ForecastCard';
 import Search from './components/search';
+import SearchCard from './components/SearchCard';
 
 // Example app code, kept for reference.
 
@@ -54,6 +55,8 @@ function Test() {
     <br></br>
     <ForecastCard hourTimes={['8am', '9am', '10am', '11am', '12pm', '1pm', '2pm','3pm','4pm','5pm','6pm','7pm']} hourWeather={['—','—','—','—','—','—','—','—','—','—','—','—']} hourTemps={['77', '77', '77', '77', '77', '77', '77', '77','77', '77','77', '77']}/>
     <Search type="text" placeholder="Search for a city" iconName="search.svg"></Search>
+    <br></br>
+    <SearchCard cityName="Grand Island" state="FL"/>
   </div>;
 }
 

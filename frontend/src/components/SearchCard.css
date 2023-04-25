@@ -1,0 +1,24 @@
+.cityCard {
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-family: sans-serif;
+    color: #6D6D6D;
+    margin-bottom: 8px;
+}
+
+.cityName {
+    font-size: 28px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.highLowTemp {
+    font-size: 16px;
+}
+
+.currentTemp {
+    font-size: 64px;
+}
