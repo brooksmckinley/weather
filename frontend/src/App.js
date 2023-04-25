@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Forecast from './pages/Forecast';
+import Results from './pages/Results';
 
 import CityCard from './components/CityCard';
 import ForecastCard from './components/ForecastCard';
@@ -43,6 +44,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/forecast" element={<Forecast cityName="Orlando" currentTemp={77}/>} />
+        <Route path="/results" element={<Results />}/>
         <Route path="/test" element={<Test />} />
       </Routes>
     </BrowserRouter>

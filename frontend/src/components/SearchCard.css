@@ -1,4 +1,4 @@
-.cityCard {
+.searchCityCard {
     background-color: white;
     border-radius: 10px;
     padding: 10px;
@@ -6,19 +6,25 @@
     justify-content: space-between;
     font-family: sans-serif;
     color: #6D6D6D;
-    margin-bottom: 8px;
+    margin-bottom: 15px;
 }
 
-.cityName {
-    font-size: 28px;
+.searchCityName {
+    font-size: 24px;
     padding-top: 10px;
     padding-bottom: 10px;
+    display: inline;
 }
 
-.highLowTemp {
-    font-size: 16px;
+.searchCardContents {
+    display: inline;
 }
 
-.currentTemp {
-    font-size: 64px;
+.addButton button{
+    position: fixed;
+    right: 5px;
+}
+
+.addButton {
+    display: inline;
 }
