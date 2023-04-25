@@ -75,7 +75,7 @@ function Dashboard() {
                     return {
                         cityName: city.city,
                         highTemp: forecasts[city.locationKey].TemperatureSummary.Past24HourRange.Maximum.Imperial.Value,
-                        lowTemp: forecasts[city.locationKey].TemperatureSummary.Past24HourRange.Maximum.Imperial.Value,
+                        lowTemp: forecasts[city.locationKey].TemperatureSummary.Past24HourRange.Minimum.Imperial.Value,
                         currentTemp: forecasts[city.locationKey].Temperature.Imperial.Value,
                         key: city.locationKey,
                     };
