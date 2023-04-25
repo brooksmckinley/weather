@@ -13,7 +13,7 @@ const weatherRoutes = require('./routes/weatherRoutes');
 
 app.use(express.json());
 app.use(cookieParser());
-console.log(process.env.NODE_ENV);
+console.log("Environment: " + process.env.NODE_ENV);
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', process.env.NODE_ENV == 'development' ? 'http://localhost:3000' : '*');
     res.setHeader(
