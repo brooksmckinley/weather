@@ -43,8 +43,8 @@ function App() {
         <Route index element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/forecast" element={<Forecast cityName="Orlando" currentTemp={77}/>} />
         <Route path="/results" element={<Results />}/>
+        <Route path="/forecast/:location/:cityName" element={<Forecast />} />
         <Route path="/test" element={<Test />} />
       </Routes>
     </BrowserRouter>

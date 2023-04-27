@@ -4,7 +4,7 @@ require('dotenv').config();
 
 module.exports = router;
 
-router.get('/citySearch', async (req, res) => 
+router.post('/citySearch', async (req, res) => 
 {
     const base = 'http://dataservice.accuweather.com/locations/v1/cities/search'; //base url from api website
     
@@ -39,7 +39,7 @@ router.get('/citySearch', async (req, res) =>
     res.json(returnData);
 });
 
-router.get('/12hrForecast' , async (req, res) => 
+router.post('/12hrForecast' , async (req, res) => 
 {
     const base = 'http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/';
     const query =  `${req.body['Key']}?apikey=${process.env.ACCUWEATHER_API_KEY} `;
@@ -83,10 +83,10 @@ router.get('/12hrForecast' , async (req, res) =>
 })
 
 /////Daily Forecast
-router.get('/DailyForecast' , async (req, res) => 
+router.post('/DailyForecast' , async (req, res) => 
 {
-    const base = 'http://dataservice.accuweather.com/forecasts/v1/daily/1day/';
-    const query =  `${req.body['Key']}?apikey=${process.env.ACCUWEATHER_API_KEY} `;
+    const base = 'http://dataservice.accuweather.com/currentconditions/v1/';
+    const query =  `${req.body['Key']}?apikey=${process.env.ACCUWEATHER_API_KEY}&details=true`;
     const response = await fetch(base + query);
     const data = await response.json();
 
