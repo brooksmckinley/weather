@@ -52,7 +52,7 @@ function Dashboard() {
             // Load in each of the user's locations in parallel
             // Save on API calls while developing
             // user.locations = [user.locations[0]];
-            await Promise.all(user.locations.map(async (city) => {
+            for (let city of user.locations) {
                 const forecastRequest = await fetch(`${ENVIRONMENT.BACKEND_URL}/weather/DailyForecast`, {
                     method: "POST", // *GET, POST, PUT, DELETE, etc.
                     mode: "cors", // no-cors, *cors, same-origin
@@ -67,7 +67,7 @@ function Dashboard() {
                 });
                 const forecast = await forecastRequest.json();
                 forecasts[city.locationKey] = forecast[0];
-            }));
+            }
 
             // // Place all of the loaded information into state if the component that called this effect hasn't been removed.
             if (active) {
