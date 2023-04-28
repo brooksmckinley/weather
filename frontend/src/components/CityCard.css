@@ -10,11 +10,17 @@
     cursor: pointer;
 }
 
+.cityNameContainer {
+    min-width: 0;
+}
+
 .cityName {
     font-size: 40px;
     font-weight: bold;
     padding-top: 10px;
     padding-bottom: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .highLowTemp {
@@ -23,4 +29,5 @@
 
 .currentTemp {
     font-size: 64px;
+    min-width: auto;
 }

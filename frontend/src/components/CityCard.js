@@ -6,7 +6,7 @@ function CityCard({cityName, cityKey, highTemp, lowTemp, currentTemp}) {
     const navigate = useNavigate();
 
     return <div onClick={() => navigate(`/forecast/${cityKey}/${cityName}`)} className="cityCard">
-        <div>
+        <div className="cityNameContainer">
             <div className="cityName">
                 {cityName}
             </div>
