@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState, useMemo } from 'react';
 
 import ForecastCard from '../components/ForecastCard';
@@ -6,6 +6,8 @@ import ENVIRONMENT from '../utils/environment';
 import './forecast.css';
 
 function Forecast() {
+    const navigate = useNavigate();
+
     const { location, cityName } = useParams();
 
     const [forecast, setForecast] = useState([]);
@@ -53,6 +55,27 @@ function Forecast() {
         return () => active = false;
     }, [location]);
 
+    async function deleteCity() {
+        const deleteRequest = await fetch(`${ENVIRONMENT.BACKEND_URL}/user/deleteLocation`, {
+            method: "POST", // *GET, POST, PUT, DELETE, etc.
+            mode: "cors", // no-cors, *cors, same-origin
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: "include", // include, *same-origin, omit
+            headers: {
+              "Content-Type": "application/json",
+            },
+            redirect: "follow", // manual, *follow, error
+            referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            body: JSON.stringify({
+                locationKey: location,
+            }),
+        });
+        await deleteRequest.text();
+
+        // Once the add operation finishes, send the user back to the dashboard.
+        navigate("/dashboard");
+    }
+
     const hours = useMemo(() => {
         return forecast.map((hourForecast) => {
             const hourNum = new Date(hourForecast.DateTime).getHours();
@@ -69,8 +92,8 @@ function Forecast() {
 
     return <div className="forecastPage">
         <div className="forecastButton">
-            <button type = "button">Back</button>
-            <button type = "button" class="delete">Delete</button>
+            <button onClick={() => navigate("/dashboard")} type = "button">Back</button>
+            <button onClick={deleteCity} type = "button" class="delete">Delete</button>
         </div>
         <br></br>
         <div className="forecastCity">
