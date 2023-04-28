@@ -1,6 +1,6 @@
 import './SearchCard.css';
 
-function CityCard({cityName, state}) {
+function CityCard({cityName, state, onAdd }) {
 
     return <div className="searchCityCard">
         <div className="searchCardContents">
@@ -8,7 +8,7 @@ function CityCard({cityName, state}) {
                 {cityName}, {state}
             </div>
             <div className="addButton">
-                <button type = "button" class="add">ADD</button>
+                <button onClick={onAdd} type = "button" class="add">ADD</button>
             </div>
         </div>
     </div>;

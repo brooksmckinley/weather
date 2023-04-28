@@ -1,8 +1,10 @@
-import { useState, useMemo } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import SearchCard from "../components/SearchCard";
 import "./Results.css";
 import Search from "../components/search";
 import { Link } from "react-router-dom";
+import ENVIRONMENT from "../utils/environment";
 
 // Dummy state
 // TODO: Replace all instances of TEST_CITIES with a real array of cities obtained from the API.
@@ -26,17 +28,69 @@ const TEST_RESULTS = [
 ];
 
 function Results() {
-    const [text, searchCity] = useState("");
-    const [firstName, setFirstName] = useState("Loading...");
+    const navigate = useNavigate();
 
-    //Filter the list of cities when the search text changes using a case-insensitive search.
-    const resultCities = useMemo(() => TEST_RESULTS.filter(resultCity => resultCity.cityName.toLowerCase().includes(text.toLowerCase())), [text]);
+    const [text, searchCity] = useState("");
+    const [resultCities, setResultCities] = useState([]);
+
+    useEffect(() => {
+        let active = true;
+
+        async function performSearch() {
+            const searchRequest = await fetch(`${ENVIRONMENT.BACKEND_URL}/weather/citySearch`, {
+                method: "POST", // *GET, POST, PUT, DELETE, etc.
+                mode: "cors", // no-cors, *cors, same-origin
+                cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+                credentials: "include", // include, *same-origin, omit
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                redirect: "follow", // manual, *follow, error
+                referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+                body: JSON.stringify({ city: text }),
+            });
+            const search = await searchRequest.json();
+
+            if (active) {
+                setResultCities(search);
+            }
+        }
+        performSearch();
+
+        return () => active = false;
+    }, [text]);
+
+    async function addCity(city) {
+        const addRequest = await fetch(`${ENVIRONMENT.BACKEND_URL}/user/location`, {
+            method: "POST", // *GET, POST, PUT, DELETE, etc.
+            mode: "cors", // no-cors, *cors, same-origin
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: "include", // include, *same-origin, omit
+            headers: {
+              "Content-Type": "application/json",
+            },
+            redirect: "follow", // manual, *follow, error
+            referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            body: JSON.stringify({
+                locationKey: city.Key,
+                city: city.City,
+                state: city.State,
+                country: city.Country,
+            }),
+        });
+        const search = await addRequest.json();
+
+        // Once the add operation finishes, send the user back to the dashboard.
+        navigate("/dashboard");
+    }
 
     function renderCities() {
         return resultCities.map(function (resultCity) {
             return <SearchCard
-             cityName={resultCity.cityName} 
-             state={resultCity.state}
+             cityName={resultCity.City} 
+             state={resultCity.State}
+             key={resultCity.Key}
+             onAdd={() => addCity(resultCity)}
             />
         })
     }
