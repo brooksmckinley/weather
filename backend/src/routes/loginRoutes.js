@@ -50,7 +50,12 @@ router.post('/login', async (req, res) =>
             const token = jwt.sign( { _id : user._id }, Buffer.from(process.env.ACCESS_TOKEN_SECRET, 'base64'));
 
             // Set cookie
-            res.cookie('jwt', token);
+            if (process.env.NODE_ENV === "development") {
+                res.cookie('jwt', token, { sameSite: "None", secure: true });
+            } else {
+                res.cookie('jwt', token);
+            }
+            
 
             res.json({msg: "Logged in successfully"});
         }
