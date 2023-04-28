@@ -154,7 +154,7 @@ router.post('/location', async (req, res) =>
 });
 
 // Deletes the first location matching locationKey in the requestBody from the currently logged in user
-router.delete('/location', async (req, res) => 
+router.post('/deleteLocation', async (req, res) => 
 {
     const userID = getUserID(req);
 

@@ -6,8 +6,14 @@ module.exports = router;
 
 router.post('/citySearch', async (req, res) => 
 {
+    // Awful quick hack to prevent the backend from crashing
+    if (req.body["city"]?.trim() === "") {
+        res.json([]);
+        return;
+    }
+
     const base = 'http://dataservice.accuweather.com/locations/v1/cities/search'; //base url from api website
-    
+
     // use a ? when you are putting a parameter at the end
     // make it a template string so that we can put the variable key in it
     const query = `?apikey=${process.env.ACCUWEATHER_API_KEY}&q=${req.body['city']}`;

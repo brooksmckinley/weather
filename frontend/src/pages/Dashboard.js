@@ -2,7 +2,7 @@ import { useState, useMemo, useEffect } from "react";
 import CityCard from "../components/CityCard";
 import "./Dashboard.css";
 import Search from "../components/search";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ENVIRONMENT from "../utils/environment";
 
 // Dummy state
@@ -35,6 +35,8 @@ const TEST_CITIES = [
 ];
 
 function Dashboard() {
+    const navigate = useNavigate();
+
     const [text, searchCity] = useState("");
     const [cities, setCities] = useState([]);
     const [firstName, setFirstName] = useState("Loading...");
@@ -52,7 +54,7 @@ function Dashboard() {
             // Load in each of the user's locations in parallel
             // Save on API calls while developing
             // user.locations = [user.locations[0]];
-            await Promise.all(user.locations.map(async (city) => {
+            for (let city of user.locations) {
                 const forecastRequest = await fetch(`${ENVIRONMENT.BACKEND_URL}/weather/DailyForecast`, {
                     method: "POST", // *GET, POST, PUT, DELETE, etc.
                     mode: "cors", // no-cors, *cors, same-origin
@@ -67,7 +69,7 @@ function Dashboard() {
                 });
                 const forecast = await forecastRequest.json();
                 forecasts[city.locationKey] = forecast[0];
-            }));
+            }
 
             // // Place all of the loaded information into state if the component that called this effect hasn't been removed.
             if (active) {
@@ -114,12 +116,18 @@ function Dashboard() {
     }
     
     return <div>
+        <div class="forecastButton">
+            <button onClick={() => navigate("/")}>Log Out</button>
+            <button onClick={() => navigate("/results")} type = "button" class="delete">Add</button>
+        </div>
+        <br />
         <h1>Welcome, {firstName}</h1>
         <div className="cardContainer">
             { search() }
             <br />
             { renderCities() }
         </div>
+        
     </div>
 }
 
